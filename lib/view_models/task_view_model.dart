@@ -5,11 +5,18 @@ import '../repository/task_repository.dart';
 class TaskViewModel extends ChangeNotifier {
   final TaskRepository _repository = TaskRepository();
   List<Task> _tasks = [];
+  bool _isLoading = false;
 
   List<Task> get tasks => _tasks;
+  bool get isLoading => _isLoading;
 
   Future<void> loadTasks() async {
+    _isLoading = true;
+    notifyListeners();
+
     _tasks = await _repository.getTasks();
+    _isLoading = false;
+
     notifyListeners();
   }
 

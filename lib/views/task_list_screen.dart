@@ -31,6 +31,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
       ),
       body: Consumer<TaskViewModel>(
         builder: (context, taskViewModel, child) {
+          if (taskViewModel.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
           if (taskViewModel.tasks.isEmpty) {
             return const Center(
               child: Column(
